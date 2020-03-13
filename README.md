@@ -1,14 +1,19 @@
 # enviro_sensors
 
-A new flutter plugin project.
+A plugin that in the future will facilitate calling the enviroment sensors on both 
+android and iOS. 
+
+Currently, only android pressure sensor stream is implemented.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+Install the package, import it and call the "barometerEvents" getter to instantiate a stream
+of pressure events, see example/lib/main.dart for more. 
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### TODO: 
+
+- improve the interface for barometerEvents stream, add way to change SENSOR_DELAY if the device
+    enables it.
+- add barometerEvents stream on iOS.
+- implement same API for temperature, light and humidity sensors.
+- write docs and improve "example".

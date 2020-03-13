@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
-    _pressureStream = barometerEvents.asBroadcastStream();
+    
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
     String barometerReading;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
+      _pressureStream = barometerEvents.asBroadcastStream();
       platformVersion = await EnviroSensors.platformVersion;
       final tmpBarometerReading = await EnviroSensors.barometerReading;
       barometerReading = tmpBarometerReading.toString();
