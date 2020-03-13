@@ -1,8 +1,8 @@
 name: enviro_sensors
-description: A new flutter plugin project.
+description: Flutter plugin for accessing enviroment sensors, however, only pressure sensor is implemented for android at the moment.
 version: 0.0.1
-author:
-homepage:
+author: yanay porat
+homepage: https://github.com/barbadose
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
