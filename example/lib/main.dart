@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double _barometerReading;
+  // double _barometerReading;
   Stream<BarometerEvent> _pressureStream;
   Stream<LightmeterEvent> _lightmeterStream;
   Stream<AmbientTempEvent> _ambientTempStream;
@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    double barometerReading;
+    // double barometerReading;
     Stream<BarometerEvent> pressureStream;
     Stream<LightmeterEvent> lightmeterStream;
     Stream<AmbientTempEvent> ambientTempStream;
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       humidityStream = humidityEvents.asBroadcastStream();
       // barometerReading = await EnviroSensors.barometerReading;
     } on PlatformException {
-      barometerReading = null;
+      // barometerReading = null;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     _ambientTempStream = ambientTempStream;
     _humidityStream = humidityStream;
     setState(() {
-      _barometerReading = barometerReading;
+      // _barometerReading = barometerReading;
     });
   }
 
