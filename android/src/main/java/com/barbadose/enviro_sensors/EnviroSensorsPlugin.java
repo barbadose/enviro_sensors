@@ -19,18 +19,25 @@ import static android.content.Context.SENSOR_SERVICE;
 /** EnviroSensorsPlugin */
 public class EnviroSensorsPlugin implements FlutterPlugin, MethodCallHandler {
   private static final String BAROMETER_CHANNEL_NAME = "barometerStream";
+  private static final String LIGHTMETER_CHANNEL_NAME = "lightmeterStream";
+  private static final String AMBIENT_TEMP_CHANNEL_NAME = "ambientTempStream";
+  private static final String HUMIDITY_CHANNEL_NAME = "humidityStream";
 
   private EventChannel barometerChannel;
+  private EventChannel lightmeterChannel;
+  private EventChannel ambientTempChannel;
+  private EventChannel humidityChannel;
+
+  // private SensorManager mSensorManager;
+  // private Sensor mBarometer;
+  // private Registrar mRegistrar;
+
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
     final Context context = binding.getApplicationContext();
     final BinaryMessenger messenger = binding.getFlutterEngine().getDartExecutor();
-    barometerChannel = new EventChannel(messenger, BAROMETER_CHANNEL_NAME);
-
-    final StreamHandlerImpl barometerStreamHandler = new StreamHandlerImpl(
-        (SensorManager) context.getSystemService(context.SENSOR_SERVICE), Sensor.TYPE_PRESSURE);
-    barometerChannel.setStreamHandler(barometerStreamHandler);
+    setupEventChannels(context, messenger);
 
     final MethodChannel channel = new MethodChannel(binding.getFlutterEngine().getDartExecutor(),
         "enviro_sensors");
@@ -38,11 +45,16 @@ public class EnviroSensorsPlugin implements FlutterPlugin, MethodCallHandler {
   }
 
   public static void registerWith(Registrar registrar) {
+    EnviroSensorsPlugin plugin = new EnviroSensorsPlugin();
+    plugin.setupEventChannels(registrar.context(), registrar.messenger());
+
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "enviro_sensors");
     channel.setMethodCallHandler(new EnviroSensorsPlugin());
   }
 
   double getBarometer() {
+    mSensorManager = (SensorManager)(mRegistrar.activeContext().getSystemService(SENSOR_SERVICE));
+    mBarometer = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
     return 101325;
   }
 
@@ -52,11 +64,11 @@ public class EnviroSensorsPlugin implements FlutterPlugin, MethodCallHandler {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
       return;
     }
-    if (call.method.equals("getBarometer")) {
-      double reading = getBarometer();
-      result.success(reading);
-      return;
-    }
+    // if (call.method.equals("getBarometer")) {
+    //   double reading = getBarometer();
+    //   result.success(reading);
+    //   return;
+    // }
 
     result.notImplemented();
 
@@ -65,6 +77,30 @@ public class EnviroSensorsPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     teardownEventChannels();
+  }
+
+  private void setupEventChannels(Context context, BinaryMessenger messenger) {
+    
+    barometerChannel = new EventChannel(messenger, BAROMETER_CHANNEL_NAME);
+    final StreamHandlerImpl barometerStreamHandler = new StreamHandlerImpl(
+        (SensorManager) context.getSystemService(context.SENSOR_SERVICE), Sensor.TYPE_PRESSURE);
+    barometerChannel.setStreamHandler(barometerStreamHandler);
+
+    lightmeterChannel = new EventChannel(messenger, LIGHTMETER_CHANNEL_NAME);
+    final StreamHandlerImpl lightmeterStreamHandler = new StreamHandlerImpl(
+        (SensorManager) context.getSystemService(context.SENSOR_SERVICE), Sensor.TYPE_LIGHT);
+    lightmeterChannel.setStreamHandler(lightmeterStreamHandler);
+
+    ambientTempChannel = new EventChannel(messenger, AMBIENT_TEMP_CHANNEL_NAME);
+    final StreamHandlerImpl ambientTempStreamHandler = new StreamHandlerImpl(
+        (SensorManager) context.getSystemService(context.SENSOR_SERVICE), Sensor.TYPE_AMBIENT_TEMPERATURE);
+    ambientTempChannel.setStreamHandler(ambientTempStreamHandler);
+
+    humidityChannel = new EventChannel(messenger, HUMIDITY_CHANNEL_NAME);
+    final StreamHandlerImpl humidityStreamHandler = new StreamHandlerImpl(
+        (SensorManager) context.getSystemService(context.SENSOR_SERVICE), Sensor.TYPE_RELATIVE_HUMIDITY);
+    humidityChannel.setStreamHandler(humidityStreamHandler);
+ 
   }
 
   private void teardownEventChannels() {
