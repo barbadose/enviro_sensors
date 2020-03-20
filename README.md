@@ -12,7 +12,7 @@ Instantiate an appropriate stream (baromterEvents, lightmeterEvents, ambientTemp
 Readings are received as doubles in their corresponding measurement units, and can be accessed in the 
 ".reading" property of each event. (see [Example/lib/main.dart](https://github.com/barbadose/enviro_sensors/blob/master/example/lib/main.dart) for more).
 
-![](assets/Example_Screenshot.png)
+![](assets/example_screenshot_small.png)
 
 ### TODO: 
 ---------
