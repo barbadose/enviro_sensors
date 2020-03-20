@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 const EventChannel _barometerEventChannel = EventChannel('barometerStream');
