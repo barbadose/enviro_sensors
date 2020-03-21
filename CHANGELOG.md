@@ -17,3 +17,7 @@
 ## iOS:
 
 * not implemented yet.
+
+## 1.0.1
+
+* commented out a code block that caused a bug in EnviroSensorsPlugin.java

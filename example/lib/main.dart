@@ -55,6 +55,9 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  String _addUnitOfMeasurementSuffix(double prefix, String suffix) {
+    return prefix.toStringAsFixed(1) + ' ' + suffix;
+  }
   // Future<double> dispatchBarometerCall() async {
   //   double barometerReading;
   //   try {

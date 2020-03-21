@@ -1,6 +1,6 @@
 name: enviro_sensors
 description: Flutter plugin for accessing enviroment sensors. unfortunately, iOS is not yet supported.
-version: 1.0.0
+version: 1.0.1
 author: yanay porat
 homepage: https://github.com/barbadose
 

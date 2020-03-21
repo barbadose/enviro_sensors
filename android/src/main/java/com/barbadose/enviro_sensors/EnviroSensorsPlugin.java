@@ -52,11 +52,11 @@ public class EnviroSensorsPlugin implements FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(new EnviroSensorsPlugin());
   }
 
-  double getBarometer() {
-    mSensorManager = (SensorManager)(mRegistrar.activeContext().getSystemService(SENSOR_SERVICE));
-    mBarometer = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-    return 101325;
-  }
+  // double getBarometer() {
+  //   mSensorManager = (SensorManager)(mRegistrar.activeContext().getSystemService(SENSOR_SERVICE));
+  //   mBarometer = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+  //   return 101325;
+  // }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
