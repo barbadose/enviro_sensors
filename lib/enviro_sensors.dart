@@ -59,41 +59,37 @@ HumidityEvent _doubleToHumidityEvent(List<double> dbl) {
   return HumidityEvent(dbl[0]);
 }
 
-Stream<BarometerEvent> _barometerEvents;
-Stream<LightmeterEvent> _lightmeterEvents;
-Stream<AmbientTempEvent> _ambientTempEvents;
-Stream<HumidityEvent> _humidityEvents;
+Stream<BarometerEvent>? _barometerEvents;
+Stream<LightmeterEvent>? _lightmeterEvents;
+Stream<AmbientTempEvent>? _ambientTempEvents;
+Stream<HumidityEvent>? _humidityEvents;
 
 Stream<BarometerEvent> get barometerEvents {
-  if (_barometerEvents == null) {
-    _barometerEvents = _barometerEventChannel.receiveBroadcastStream().map((dynamic event)
-    => _doubleToBarometerEvent(event.cast<double>()));
-  }
-  return _barometerEvents;
+  _barometerEvents ??= _barometerEventChannel
+      .receiveBroadcastStream()
+      .map((dynamic event) => _doubleToBarometerEvent(event.cast<double>()));
+  return _barometerEvents!;
 }
 
 Stream<LightmeterEvent> get lightmeterEvents {
-  if (_lightmeterEvents == null) {
-    _lightmeterEvents = _lightmeterEventChannel.receiveBroadcastStream().map((dynamic event)
-    => _doubleToLightmeterEvent(event.cast<double>()));
-  }
-  return _lightmeterEvents;
+  _lightmeterEvents ??= _lightmeterEventChannel
+      .receiveBroadcastStream()
+      .map((dynamic event) => _doubleToLightmeterEvent(event.cast<double>()));
+  return _lightmeterEvents!;
 }
 
 Stream<AmbientTempEvent> get ambientTempEvents {
-  if (_ambientTempEvents == null) {
-    _ambientTempEvents = _ambientTempEventChannel.receiveBroadcastStream().map((dynamic event)
-    => _doubleToAmbientTempEvent(event.cast<double>()));
-  }
-  return _ambientTempEvents;
+  _ambientTempEvents ??= _ambientTempEventChannel
+      .receiveBroadcastStream()
+      .map((dynamic event) => _doubleToAmbientTempEvent(event.cast<double>()));
+  return _ambientTempEvents!;
 }
 
 Stream<HumidityEvent> get humidityEvents {
-  if (_humidityEvents == null) {
-    _humidityEvents = _humidityEventChannel.receiveBroadcastStream().map((dynamic event)
-    => _doubleToHumidityEvent(event.cast<double>()));
-  }
-  return _humidityEvents;
+  _humidityEvents ??= _humidityEventChannel
+      .receiveBroadcastStream()
+      .map((dynamic event) => _doubleToHumidityEvent(event.cast<double>()));
+  return _humidityEvents!;
 }
 
 
